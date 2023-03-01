@@ -12,4 +12,12 @@ def get_flipped_color(color):
         return WHITE
     if color == WHITE or color == GRAY:
         return BLACK
-        
+
+
+# directions
+devant= 0
+droit = 1
+bas = 2
+gauche = 3
+
+
