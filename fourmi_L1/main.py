@@ -58,6 +58,18 @@ class Cell:
         self.y = y
         self.color = color
 
+ class Ant:
+    def __init__(self, widget, x, y, direction=devant):
+        # Initialise une nouvelle instance de la classe Ant avec les
+        # propriétés suivantes :
+        # - widget : le widget TK qui représente la fourmi sur l'écran
+        # - x : la coordonnée en abscisse de la fourmi dans la grille
+        # - y : la coordonnée en ordonnée de la fourmi dans la grille
+        # - direction : la direction de la fourmi (devant, derrière, gauche ou droite)
+        self.widget = widget
+        self.x = x
+        self.y = y
+        self.dir = direction    
 
 
 
