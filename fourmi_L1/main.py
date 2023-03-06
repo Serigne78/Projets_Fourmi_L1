@@ -36,6 +36,29 @@ def left_dir(direction):
     # résultat reste compris entre 0 et 3.
     return (direction - 1) % 4
 
+# Configuration de TK
+X_CELLS = 71          # Nombre de cellules en largeur
+Y_CELLS = 53       # Nombre de cellules en hauteur
+CELL_SIZE = 14    # Taille d'une cellule en pixels
+SLEEP_TIME = 1        # Temps en ms entre deux déplacements
+DEFAULT_SPEED = 1     # Nombre de déplacements avant un temps de pause
+
+
+
+class Cell:
+    def __init__(self, widget, x, y, color=WHITE):
+        # Initialise une nouvelle instance de la classe Cell avec les
+        # propriétés suivantes :
+        # - widget : le widget TK qui représente la cellule sur l'écran
+        # - x : la coordonnée en abscisse de la cellule dans la grille
+        # - y : la coordonnée en ordonnée de la cellule dans la grille
+        # - color : la couleur de la cellule, par défaut "BLANCHE"
+        self.widget = widget
+        self.x = x
+        self.y = y
+        self.color = color
+
+
 
 
 
