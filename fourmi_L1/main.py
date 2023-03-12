@@ -84,13 +84,13 @@ class App(Tk):
         if X_CELLS % 2 == 0 or Y_CELLS % 2 == 0:
             raise Exception("Impossible")
             
-#titre
-self.title_label = Label(self, text="Fourmi de Langton", justify=CENTER)
-self.title_label.pack()
+        #titre
+        self.title_label = Label(self, text="Fourmi de Langton", justify=CENTER)
+        self.title_label.pack()
 
-#frame
-self.frame = Frame(self, padx=1, pady=1, borderwidth=2, relief=GROOVE)
-self.frame.pack()
+        #frame
+        self.frame = Frame(self, padx=1, pady=1, borderwidth=2, relief=GROOVE)
+        self.frame.pack()
 
 
 
