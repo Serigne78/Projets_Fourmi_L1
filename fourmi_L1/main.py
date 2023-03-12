@@ -91,6 +91,21 @@ class App(Tk):
         #frame
         self.frame = Frame(self, padx=1, pady=1, borderwidth=2, relief=GROOVE)
         self.frame.pack()
+        
+        #definir la taille du canvas
+        self.canvas = Canvas(self.frame, width=10 + X_CELLS * CELL_SIZE, height=10 + Y_CELLS * CELL_SIZE, bd=0 , background= WHITE)
+        for i in range(0, 1 + X_CELLS):
+            self.canvas.create_line(5 + CELL_SIZE * i, 5, 5 + CELL_SIZE * i, 5 + Y_CELLS * CELL_SIZE, fill=BLACK)
+        for j in range(0, 1 + Y_CELLS):
+            self.canvas.create_line(5, 5 + CELL_SIZE * j, 5 + X_CELLS * CELL_SIZE, 5 + CELL_SIZE * j, fill=BLACK)
+        self.canvas.pack()
+        for i in range(0, X_CELLS):
+            for j in range(0, Y_CELLS):
+                cell = self.canvas.create_rectangle(5 + i * CELL_SIZE + 1, 5 + j * CELL_SIZE + 1, (i + 1) * CELL_SIZE + 5, 5 + (j + 1) * CELL_SIZE,fill=GRAY, outline="")
+                self.cells[(i, j)]= Cell(cell, i, j)
+                                    
+                           
+        
 
 
 
