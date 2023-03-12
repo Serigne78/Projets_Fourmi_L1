@@ -83,6 +83,15 @@ class App(Tk):
         self.speed = DEFAULT_SPEED
         if X_CELLS % 2 == 0 or Y_CELLS % 2 == 0:
             raise Exception("Impossible")
+            
+#titre
+self.title_label = Label(self, text="Fourmi de Langton", justify=CENTER)
+self.title_label.pack()
+
+#frame
+self.frame = Frame(self, padx=1, pady=1, borderwidth=2, relief=GROOVE)
+self.frame.pack()
+
 
 
 # Créer une instance de la classe App
@@ -90,6 +99,7 @@ app = App()
 
 # Lancer la boucle principale d'affichage pour l'interface utilisateur
 app.mainloop()
+
 
 
 
