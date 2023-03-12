@@ -58,7 +58,7 @@ class Cell:
         self.y = y
         self.color = color
 
- class Ant:
+class Ant:
     def __init__(self, widget, x, y, direction=devant):
         # Initialise une nouvelle instance de la classe Ant avec les
         # propriétés suivantes :
@@ -70,9 +70,26 @@ class Cell:
         self.x = x
         self.y = y
         self.dir = direction    
-        tt
+        
+
+class App(Tk):
+    def __init__(self, *args, **kwargs):
+        Tk.__init__(self, *args, **kwargs)
+        self.cells = {}
+        self.finished = False   # impossible d'aller plus loin en raison de la taille de la grille
+        self.stopped = False    # l'utilisateur a interrompu l'exécution
+        self.running = False    # actuellement en cours d'exécution (évite les rappels multiples)
+        self.steps = 0
+        self.speed = DEFAULT_SPEED
+        if X_CELLS % 2 == 0 or Y_CELLS % 2 == 0:
+            raise Exception("Impossible")
 
 
+# Créer une instance de la classe App
+app = App()
+
+# Lancer la boucle principale d'affichage pour l'interface utilisateur
+app.mainloop()
 
 
 
