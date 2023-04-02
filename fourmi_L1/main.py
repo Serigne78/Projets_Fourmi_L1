@@ -1,6 +1,9 @@
+
+
+
+
 from tkinter import *
 import math
-
 # colors
 WHITE = "white"
 BLACK = "black"
@@ -12,13 +15,12 @@ def get_flipped_color(color):
         return WHITE
     if color == WHITE or color == GRAY:
         return BLACK
-
-
 # directions
 devant= 0
 droit = 1
 bas = 2
 gauche = 3
+
 
 def right_dir(direction):
     # Calcule la direction à droite de la direction donnée.
@@ -36,13 +38,13 @@ def left_dir(direction):
     # résultat reste compris entre 0 et 3.
     return (direction - 1) % 4
 
+
 # Configuration de TK
 X_CELLS = 71          # Nombre de cellules en largeur
 Y_CELLS = 53       # Nombre de cellules en hauteur
 CELL_SIZE = 14    # Taille d'une cellule en pixels
 SLEEP_TIME = 1        # Temps en ms entre deux déplacements
 DEFAULT_SPEED = 1     # Nombre de déplacements avant un temps de pause
-
 
 
 class Cell:
@@ -58,6 +60,7 @@ class Cell:
         self.y = y
         self.color = color
 
+
 class Ant:
     def __init__(self, widget, x, y, direction=devant):
         # Initialise une nouvelle instance de la classe Ant avec les
@@ -71,7 +74,6 @@ class Ant:
         self.y = y
         self.dir = direction    
         
-
 class App(Tk):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
@@ -83,13 +85,97 @@ class App(Tk):
         self.speed = DEFAULT_SPEED
         if X_CELLS % 2 == 0 or Y_CELLS % 2 == 0:
             raise Exception("Impossible")
+            
+        #titre
+        self.title_label = Label(self, text="Fourmi de Langton", justify=CENTER)
+        self.title_label.pack()
+        
+        
+        #frame
+        self.frame = Frame(self, padx=1, pady=1, borderwidth=2, relief=GROOVE)
+        self.frame.pack()
+
+        #definir la taille du canvas
+        self.canvas = Canvas(self.frame, width=10 + X_CELLS * CELL_SIZE, height=10 + Y_CELLS * CELL_SIZE, bd=0 , background= WHITE)
+        for i in range(0, 1 + X_CELLS):
+            self.canvas.create_line(5 + CELL_SIZE * i, 5, 5 + CELL_SIZE * i, 5 + Y_CELLS * CELL_SIZE, fill=BLACK)
+        for j in range(0, 1 + Y_CELLS):
+            self.canvas.create_line(5, 5 + CELL_SIZE * j, 5 + X_CELLS * CELL_SIZE, 5 + CELL_SIZE * j, fill=BLACK)
+        self.canvas.pack()
+        for i in range(0, X_CELLS):
+            for j in range(0, Y_CELLS):
+                cell = self.canvas.create_rectangle(5 + i * CELL_SIZE + 1, 5 + j * CELL_SIZE + 1, (i + 1) * CELL_SIZE + 5, 5 + (j + 1) * CELL_SIZE,fill=GRAY, outline="")
+                self.cells[(i, j)]= Cell(cell, i, j) 
+
+
+     # Déterminer les coordonnées de départ pour la fourmi
+        self.x0= math.trunc(X_CELLS / 2)
+        self.y0= math.trunc(Y_CELLS / 2)
+
+        # Créer un widget pour la fourmi
+        ant_widget = self.canvas.create_oval(
+            5 + self.x0 * CELL_SIZE + 1 + 1, 5 + self.y0 * CELL_SIZE + 1 + 1,
+            5 + (self.x0 + 1) * CELL_SIZE - 1, 5 + (self.y0 + 1) * CELL_SIZE - 1,
+            fill=YELLOW, outline="")
+        
+
+        # Créer une instance de la fourmi et la stocker dans l'attribut de la classe correspondant
+        self.ant = Ant(ant_widget, self.x0, self.y0)
+
+       # Création des boutons pour contrôler l'exécution du programme
+        self.bottom_frame = Frame(self)
+        self.bottom_frame.pack()
+
+        # Bouton "Next" pour exécuter une seule étape à la fois
+        self.next_button = Button(self, text="Next", command=self.next_button_click)
+        self.next_button.pack(side="right")
+
+        # Bouton "Play" pour exécuter le programme en continu
+        self.run_button = Button(self, text="Play", command=self.run_button_click)
+        self.run_button.pack(side="right")
+        # Bouton revenir en arriere
+        self.back_button = Button(self,text="Back", command=self.back_button_click)
+        self.back_button.pack(side="right")
+
+        # Bouton "Pause" pour arrêter l'exécution du programme
+        self.stop_button = Button(self, text="Pause", command=self.stop_button_click)
+        self.stop_button.pack(side="right")
+
+
+        # Bouton "Reset" pour réinitialiser le programme à son état initial
+        self.reset_button = Button(self, text="Reset", command=self.reset_button_click)
+        self.reset_button.pack(side="right")
+    
+        #Création d'une variable pour la vitesse de l'exécution du programme
+        var = IntVar()
+        var.set(DEFAULT_SPEED)
+
+
+        # Fonction appelée lorsqu'un nouvel état est sélectionné pour la vitesse
+        def update_speed():
+            self.speed = var.get() #Definition de la vitesse par défaut 
+
+
+        Label(self, text=' ', padx=20).pack(side='left')  # Espaceur 
+        Label(self, text="Speed : ").pack(side="left") #indiquer l'option de vitesse 
+        Radiobutton(self, text="x1", variable=var, value=1, command=update_speed).pack(side="left") #Bouton radio pour vitesse x1
+        Radiobutton(self, text="x5", variable=var, value=5, command=update_speed).pack(side="left") #Bouton radio pour vitesse x5
+        Radiobutton(self, text="x10", variable=var, value=10, command=update_speed).pack(side="left") #Bouton radio pour vitesse x10
+        
+        # Création des labels pour l'affichage du nombre d'étapes
+        self.steps_label1 = Label(self, text="Step : ")
+        self.steps_label2 = Label(self, text="0")
+
+        # Placement du label "0" à droite du label "Step :"
+        self.steps_label2.pack(side="right")
+        self.steps_label1.pack(side="right")
+
+
+
+
 
 
 # Créer une instance de la classe App
 app = App()
-
 # Lancer la boucle principale d'affichage pour l'interface utilisateur
 app.mainloop()
-
-
-
