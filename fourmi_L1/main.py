@@ -2,27 +2,6 @@ from tkinter import *
 import math
 
 
-# colors
-WHITE = "white"
-BLACK = "black"
-YELLOW = "yellow"
-GRAY = "gray"
-# Cette fonction permet de changer la couleur en noir ou en blanc en fonction du positionnemnt de la fourmi 
-def get_flipped_color(color):
-    if color == BLACK:
-        return WHITE
-    if color == WHITE or color == GRAY:
-        return BLACK
-    
-
-
-# directions
-devant= 0
-droit = 1
-bas = 2
-gauche = 3
-
-
 def right_dir(direction):
     # Calcule la direction à droite de la direction donnée.
     # La direction est un entier compris entre 0 et 3.
@@ -46,6 +25,25 @@ Y_CELLS = 53       # Nombre de cellules en hauteur
 CELL_SIZE = 14    # Taille d'une cellule en pixels
 SLEEP_TIME = 1        # Temps en ms entre deux déplacements
 DEFAULT_SPEED = 1     # Nombre de déplacements avant un temps de pause
+
+
+# colors
+WHITE = "white"
+BLACK = "black"
+YELLOW = "yellow"
+GRAY = "gray"
+# Cette fonction permet de changer la couleur en noir ou en blanc en fonction du positionnemnt de la fourmi 
+def get_flipped_color(color):
+    if color == BLACK:
+        return WHITE
+    if color == WHITE or color == GRAY:
+        return BLACK
+
+# directions
+devant= 0
+droit = 1
+bas = 2
+gauche = 3
 
 
 
@@ -99,8 +97,8 @@ class App(Tk):
 
        #Définir la taille du canvas
         self.canvas = Canvas(self.frame,
-                             width=10 + X_CELLS * CELL_SIZE,
-                             height=10 + Y_CELLS * CELL_SIZE,
+                             width=6 + X_CELLS * CELL_SIZE,
+                             height=6 + Y_CELLS * CELL_SIZE,
                              bd=0, background=WHITE)
 
         for i in range(0, 1 + X_CELLS):
@@ -246,10 +244,10 @@ class App(Tk):
         # Récupère la couleur de la cellule sur laquelle se trouve la fourmi
         curr_color = self.ant_cell_color()
         # Si la cellule est noire, tourne à gauche
-        if curr_color == BLACK:
+        if curr_color == WHITE:
             return right_dir(self.ant.dir)
             # Si la cellule est blanche ou grise, tourne à droite
-        elif curr_color == WHITE or curr_color == GRAY:
+        elif curr_color == BLACK or curr_color == GRAY:
              return left_dir(self.ant.dir)
     
     
@@ -272,7 +270,7 @@ class App(Tk):
             self.canvas.move(self.ant.widget, dx, dy)
 
             # Mettre à jour le nombre d'étapes
-            self.steps += 1
+            self.steps -= 1
             self.steps_label2.config(text=str(self.steps))
 
             # Mettre à jour la position et la direction de la fourmi
@@ -400,9 +398,11 @@ class App(Tk):
             self.finished = True
     
     def back_button_click(self):
-        # permet de revenir a l'etape d'avant "yassine"
+        if self.finished or self.running:
+            return
+            # permet de revenir a l'etape d'avant 
         moved = self.back_turn()
-        if moved:
+        if not moved:
             self.stopped = False
 
 
@@ -424,7 +424,7 @@ class App(Tk):
 
     def stop_button_click(self):
         # Met à jour la variable "stopped" à True pour arrêter le jeu
-        self.stopped = True
+        self.stopped = True 
 
 
     def reset_button_click(self):
@@ -447,36 +447,6 @@ class App(Tk):
         self.stopped = False
         self.finished = False
         self.running = False
-    
-    #Bouton de sauvegarde
-
-
-
-
-    
-  
-
-
-
-
-
-
-
-
-   
-        
-
-
-# Créer une instance de la classe App
-app = App()
-
-# Lancer la boucle principale d'affichage pour l'interface utilisateur
-app.mainloop()
-
-
-
-
-
 
 # Créer une instance de la classe App
 app = App()
