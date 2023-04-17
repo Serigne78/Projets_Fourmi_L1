@@ -1,5 +1,5 @@
 # Projet Fourmi de langton
-__Td 01 MIASHS informatique (Serigne,Meriem,Yassine,...)__
+__Td 01 MIASHS informatique (Serigne,Meriem,Yassine,Ilyes)__
 La fourmi de Langton est un modèle de simulation basé sur un automate cellulaire bidimensionnel. Il a été développé par Christopher Langton en 1986 pour étudier les systèmes auto-organisés et la complexité émergente.
 
 Le modèle se compose d'une grille de cellules carrées, chacune ayant deux états possibles: noir ou blanc. Une fourmi est placée sur la grille, qui suit un ensemble de règles simples pour déterminer son comportement en fonction de la couleur de la cellule sur laquelle elle se trouve.
