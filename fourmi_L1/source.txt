@@ -1,3 +1,6 @@
 ChatGPT. 
 Forum.
 Vidéo youtube: https://youtu.be/5RhPKgAOnV4, https://www.youtube.com/watch?v=qZRYGxF6D3w&pp=ygURZm91cm1pIGRlIGxhbmd0b24%3D
+Lignes 1 à 33 : Cours IN200(Interface graphique)
+Lignes 35 à 108 : Vidéo https://youtu.be/5RhPKgAOnV4
+Lignes 195 à 231 : Cours IN200(Les fichiers)
